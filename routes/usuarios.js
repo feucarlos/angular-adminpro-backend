@@ -6,7 +6,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 
-const { getUsuarios, crearUsuario, actualizarUsuario } = require('../controllers/usuarios');
+const { getUsuarios, crearUsuario, actualizarUsuario, borrarUsuario } = require('../controllers/usuarios');
 
 
 const router = Router();
@@ -29,9 +29,20 @@ router.put('/:id',
     [
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('email', 'No es un email válido').isEmail(),
-    check('role', 'El role es obligatorio').not().isEmpty()
+    check('role', 'El role es obligatorio').not().isEmpty(),
+    validarCampos,
     ],
     actualizarUsuario
+);
+
+router.delete('/:id',
+    // [
+    // check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    // check('email', 'No es un email válido').isEmail(),
+    // check('role', 'El role es obligatorio').not().isEmpty(),
+    // validarCampos,
+    // ],
+    borrarUsuario
 );
 
 module.exports = router;
