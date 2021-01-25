@@ -9,10 +9,11 @@ const  HospitalSchema = Schema({
         type: String,
     },
     usuario: {
+        required: true,
         type: Schema.Types.ObjectId,
         reg: 'Usuario'
     }
-}, { coollection: 'hospitales' });
+}, { collection: 'hospitales' });
 
 HospitalSchema.method('toJSON', function() {
     const { __v,  ...object } = this.toObject();

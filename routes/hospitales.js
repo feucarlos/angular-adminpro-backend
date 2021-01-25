@@ -24,7 +24,11 @@ router.get('/', getHospitales );
 
 router.post(
     '/',
-    [],
+    [ 
+        validarJWT,
+        check('nombre', 'El nombre del hospital es necesario').notEmpty(),
+        validarCampos
+    ],
     crearHospital
 );
     
