@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const usuario = require('./usuario');
 
 const  HospitalSchema = Schema({
     nombre: {
@@ -9,9 +10,9 @@ const  HospitalSchema = Schema({
         type: String,
     },
     usuario: {
-        required: true,
         type: Schema.Types.ObjectId,
-        reg: 'Usuario'
+        ref: 'Usuario',
+        required: true
     }
 }, { collection: 'hospitales' });
 

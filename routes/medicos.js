@@ -15,6 +15,7 @@ const {
     actualizarMedico,
     borrarMedico
 } = require('../controllers/medicos');
+const Hospital = require('../models/hospital');
 
 
 const router = Router();
@@ -24,7 +25,12 @@ router.get('/', getMedicos );
 
 router.post(
     '/',
-    [],
+    [
+        validarJWT,
+        check('hospital', 'El hostipal id debe ser válido').isMongoId(),
+        check('nombre', 'Se requiere el nombre del médico').notEmpty(),
+        validarCampos
+    ],
     crearMedico
 );
     
