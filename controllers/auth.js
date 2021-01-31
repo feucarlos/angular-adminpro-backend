@@ -3,6 +3,7 @@ const usuario = require('../models/usuario');
 const Usuario = require('../models/usuario');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
+const { googleVerify } = require('../helpers/google-verify');
 
 const login = async (req, res= response ) => {
 
@@ -44,6 +45,27 @@ const login = async (req, res= response ) => {
     }
 }
 
+const googleSignIn = async( req, res=response )=>{
+
+    const googleToken = req.body.token;
+
+    try {
+        const {name, email, picture} = await googleVerify( googleToken );
+        res.json({
+            ok: true,
+            msg: 'Google SignIn',
+            name, email, picture
+        })
+    } catch (error) {
+        res.status(401).json({
+            ok: false,
+            msg: 'Error al autenticarse',
+        })
+    }
+
+}
+
 module.exports = {
-    login
+    login,
+    googleSignIn
 }
