@@ -34,14 +34,15 @@ router.post(
     crearMedico
 );
     
-router.put('/:id',
-    [],
-    actualizarMedico
-);
+router.put('/:id', 
+[
+    validarJWT,
+    check('hospital', 'El hostipal id debe ser válido').isMongoId(),
+    check('nombre', 'Se requiere el nombre del médico').notEmpty(),
+    validarCampos
+],
+actualizarMedico );
 
-router.delete('/:id',
-    [],
-    borrarMedico
-);
+router.delete('/:id', validarJWT, borrarMedico );
 
 module.exports = router;
